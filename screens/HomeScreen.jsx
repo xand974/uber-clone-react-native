@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
 import NavLinks from "../components/NavLinks";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { REACT_APP_GOOGLE_API } from "@env";
 
 export default function Home() {
   return (
@@ -12,6 +14,19 @@ export default function Home() {
         }}
       />
       <NavLinks />
+      <GooglePlacesAutocomplete
+        placeholder="rechercher"
+        nearbyPlacesAPI="GoogleSearchPlaces"
+        debounce={400}
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+        }}
+        query={{
+          key: REACT_APP_GOOGLE_API,
+          language: "en",
+        }}
+      />
     </SafeAreaView>
   );
 }
