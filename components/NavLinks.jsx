@@ -10,8 +10,10 @@ import {
 import { linkNavData } from "../linkData";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 export default function NavLinks() {
+  const { origin } = useSelector((state) => state.location);
   const navigation = useNavigation();
   return (
     <View>
@@ -22,8 +24,10 @@ export default function NavLinks() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity onPress={() => navigation.navigate(item.screen)}>
-              <View style={styles.container}>
+            <TouchableOpacity
+              onPress={origin && (() => navigation.navigate(item.screen))}
+            >
+              <View style={styles.container(origin)}>
                 <Image style={styles.img} source={{ uri: item.image }} />
                 <Text style={styles.text}>{item.title}</Text>
                 <View style={styles.icon_wrapper}>
@@ -47,14 +51,24 @@ const styles = StyleSheet.create({
   flatList: {
     flex: 1,
     justifyContent: "space-around",
+    marginBottom: 30,
   },
-  container: {
-    backgroundColor: "#f1f1f1",
+  container: (origin) => ({
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    opacity: !origin ? 0.3 : 1,
+    elevation: 2,
     textAlign: "center",
     padding: 20,
     width: 170,
     height: 200,
-  },
+  }),
   icon_wrapper: {
     alignItems: "flex-start",
   },
