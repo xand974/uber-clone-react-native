@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   flatList: {
     flex: 1,
     justifyContent: "space-around",
-    marginBottom: 30,
+    marginBottom: 0,
   },
   container: (origin) => ({
     backgroundColor: "white",

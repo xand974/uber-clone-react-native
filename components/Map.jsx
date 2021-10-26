@@ -9,13 +9,13 @@ export default function Map() {
   const { origin, destination } = useSelector((state) => state.location);
   const mapRef = useRef(null);
 
-
   useEffect(() => {
-    if(!origin && !destination)
-    return 
-    mapRef?.current.fitToSuppliedMarkers(["origin", "destination"], {edgePadding : { top : 10 , bottom : 10 , left : 10 , right : 10}})
+    if (!origin && !destination) return;
+    mapRef?.current.fitToSuppliedMarkers(["origin", "destination"], {
+      edgePadding: { top: 10, bottom: 10, left: 10, right: 10 },
+    });
+  }, [origin, destination]);
 
-  }, [origin, destination])
   return (
     <MapView
       ref={mapRef}

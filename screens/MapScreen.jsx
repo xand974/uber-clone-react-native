@@ -4,18 +4,15 @@ import Map from "../components/Map";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NavigateCard from "../components/NavigateCard";
 import RideOptionCard from "../components/RideOptionCard";
-import { useSelector } from "react-redux";
 const Stack = createNativeStackNavigator();
 
 export default function MapScreen() {
-  const { expand } = useSelector((state) => state.animation);
-
   return (
     <View>
-      <View style={styles.top(expand)}>
+      <View style={styles.top}>
         <Map />
       </View>
-      <View style={styles.bottom(expand)}>
+      <View style={styles.bottom}>
         <Stack.Navigator>
           <Stack.Screen
             name="NavigateCard"
@@ -34,10 +31,10 @@ export default function MapScreen() {
 }
 
 const styles = StyleSheet.create({
-  top: (expand) => ({
-    height: expand ? "0%" : "50%",
-  }),
-  bottom: (expand) => ({
-    height: expand ? "100%" : "50%",
-  }),
+  top: {
+    height: "50%",
+  },
+  bottom: {
+    height: "50%",
+  },
 });

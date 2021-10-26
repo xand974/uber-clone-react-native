@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
+import { View, StyleSheet, Image, SafeAreaView } from "react-native";
+import HistoryLink from "../components/HistoryLink";
 import NavLinks from "../components/NavLinks";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { REACT_APP_GOOGLE_API } from "@env";
@@ -21,6 +22,7 @@ export default function Home() {
         placeholder="Votre Position"
         nearbyPlacesAPI="GoogleSearchPlaces"
         debounce={400}
+        styles={googleStyle}
         enablePoweredByContainer={false}
         minLength={2}
         currentLocation={true}
@@ -39,7 +41,12 @@ export default function Home() {
           language: "en",
         }}
       />
-      <NavLinks />
+      <View style={styles.placeLink}>
+        <HistoryLink />
+      </View>
+      <View style={styles.navLink}>
+        <NavLinks />
+      </View>
     </SafeAreaView>
   );
 }
@@ -47,7 +54,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   home: {
     padding: 20,
-    height: "70%",
+    height: "100%",
   },
   img: {
     height: 90,
@@ -56,4 +63,16 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginBottom: 30,
   },
+  navLink: {
+    flex: 1,
+  },
+  placeLink: {
+    flex: 1,
+    padding: 20,
+  },
 });
+
+const googleStyle = {
+  container: { flex: 1 },
+  textInput: {},
+};
