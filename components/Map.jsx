@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 import { useSelector } from "react-redux";
+import { REACT_APP_GOOGLE_API } from "@env";
 
 export default function Map() {
-  const { origin } = useSelector((state) => state.location);
+  const { origin, destination } = useSelector((state) => state.location);
 
   return (
     <MapView
@@ -17,15 +19,35 @@ export default function Map() {
         longitudeDelta: 0.0021,
       }}
     >
+      {origin && destination && (
+        <MapViewDirections
+          origin={origin.description}
+          destination={destination.description}
+          apikey={REACT_APP_GOOGLE_API}
+          strokeWidth={3}
+          strokeColor="#161313"
+        />
+      )}
       {origin?.locationOrigin && (
         <Marker
           coordinate={{
             longitude: origin.locationOrigin.lng,
             latitude: origin.locationOrigin.lat,
           }}
-          title="Origin"
+          title="Origine"
           description={origin.description}
           identifier="origin"
+        />
+      )}
+      {destination?.locationOrigin && (
+        <Marker
+          coordinate={{
+            longitude: destination.locationOrigin.lng,
+            latitude: destination.locationOrigin.lat,
+          }}
+          title="Destination"
+          description={destination.description}
+          identifier="destination"
         />
       )}
     </MapView>

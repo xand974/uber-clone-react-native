@@ -18,7 +18,7 @@ export default function Home() {
         }}
       />
       <GooglePlacesAutocomplete
-        placeholder="rechercher"
+        placeholder="Votre Position"
         nearbyPlacesAPI="GoogleSearchPlaces"
         debounce={400}
         enablePoweredByContainer={false}
