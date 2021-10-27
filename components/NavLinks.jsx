@@ -16,34 +16,32 @@ export default function NavLinks() {
   const { origin } = useSelector((state) => state.location);
   const navigation = useNavigation();
   return (
-    <View>
-      <FlatList
-        data={linkNavData}
-        contentContainerStyle={styles.flatList}
-        horizontal
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={origin && (() => navigation.navigate(item.screen))}
-            >
-              <View style={styles.container(origin)}>
-                <Image style={styles.img} source={{ uri: item.image }} />
-                <Text style={styles.text}>{item.title}</Text>
-                <View style={styles.icon_wrapper}>
-                  <Icon
-                    style={styles.icon}
-                    name="arrowright"
-                    color="white"
-                    type="antdesign"
-                  />
-                </View>
+    <FlatList
+      data={linkNavData}
+      contentContainerStyle={styles.flatList}
+      horizontal
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => {
+        return (
+          <TouchableOpacity
+            onPress={origin && (() => navigation.navigate(item.screen))}
+          >
+            <View style={styles.container(origin)}>
+              <Image style={styles.img} source={{ uri: item.image }} />
+              <Text style={styles.text}>{item.title}</Text>
+              <View style={styles.icon_wrapper}>
+                <Icon
+                  style={styles.icon}
+                  name="arrowright"
+                  color="white"
+                  type="antdesign"
+                />
               </View>
-            </TouchableOpacity>
-          );
-        }}
-      />
-    </View>
+            </View>
+          </TouchableOpacity>
+        );
+      }}
+    />
   );
 }
 

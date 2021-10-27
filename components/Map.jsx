@@ -2,12 +2,16 @@ import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { REACT_APP_GOOGLE_API } from "@env";
+import { setTravelInfos } from "../redux/locationSlice";
 
 export default function Map() {
-  const { origin, destination } = useSelector((state) => state.location);
+  const { origin, destination, travelInfos } = useSelector(
+    (state) => state.location
+  );
   const mapRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!origin && !destination) return;
@@ -15,6 +19,22 @@ export default function Map() {
       edgePadding: { top: 10, bottom: 10, left: 10, right: 10 },
     });
   }, [origin, destination]);
+
+  useEffect(() => {
+    if (!origin || !destination) return;
+    const getTravelInfos = async () => {
+      try {
+        const res = await fetch(
+          `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin.description}&destinations=${destination.description}&key=${REACT_APP_GOOGLE_API}`
+        );
+        const data = await res.json();
+        dispatch(setTravelInfos(data.rows[0].elements[0]));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getTravelInfos();
+  }, [origin, destination, REACT_APP_GOOGLE_API]);
 
   return (
     <MapView

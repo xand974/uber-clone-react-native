@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
   flatListItem: {
     flexDirection: "row",
     alignItems: "center",
-    margin: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 20,
     backgroundColor: "#eaeaea",
     padding: 10,
     borderRadius: 10,

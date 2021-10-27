@@ -18,29 +18,29 @@ export default function Home() {
           uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/2560px-Uber_logo_2018.svg.png",
         }}
       />
-      <GooglePlacesAutocomplete
-        placeholder="Votre Position"
-        nearbyPlacesAPI="GoogleSearchPlaces"
-        debounce={400}
-        styles={googleStyle}
-        enablePoweredByContainer={false}
-        minLength={2}
-        currentLocation={true}
-        currentLocationLabel="Ma Localisation"
-        onPress={(data, details = null) => {
-          dispatch(
-            setOrigin({
-              locationOrigin: details.geometry.location,
-              description: data.description,
-            })
-          );
-        }}
-        fetchDetails={true}
-        query={{
-          key: REACT_APP_GOOGLE_API,
-          language: "en",
-        }}
-      />
+      <View style={styles.googleWrapper}>
+        <GooglePlacesAutocomplete
+          placeholder="Votre Position"
+          nearbyPlacesAPI="GoogleSearchPlaces"
+          debounce={400}
+          styles={googleStyle}
+          enablePoweredByContainer={false}
+          minLength={4}
+          onPress={(data, details = null) => {
+            dispatch(
+              setOrigin({
+                locationOrigin: details.geometry.location,
+                description: data.description,
+              })
+            );
+          }}
+          fetchDetails={true}
+          query={{
+            key: REACT_APP_GOOGLE_API,
+            language: "en",
+          }}
+        />
+      </View>
       <View style={styles.placeLink}>
         <HistoryLink />
       </View>
@@ -52,10 +52,7 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  home: {
-    padding: 20,
-    height: "100%",
-  },
+  home: { height: "100%" },
   img: {
     height: 90,
     width: 90,
@@ -63,16 +60,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginBottom: 30,
   },
-  navLink: {
-    flex: 1,
-  },
-  placeLink: {
-    flex: 1,
-    padding: 20,
-  },
+  googleWrapper: { height: "20%", zIndex: 100 },
+  placeLink: {},
+  navLink: { height: "100%" },
 });
 
 const googleStyle = {
-  container: { flex: 1 },
+  container: {},
   textInput: {},
 };
